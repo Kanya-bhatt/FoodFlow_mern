@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 export default function Login() {
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({ email: "", password: "" })
@@ -22,6 +23,7 @@ export default function Login() {
     }
 
     if(json.success){
+      localStorage.setItem("userEmail", credentials.email);
       localStorage.setItem("authToken", json.authToken)
       console.log(localStorage.getItem("authToken"))
       navigate("/");
@@ -36,7 +38,8 @@ export default function Login() {
   }
   return (
     <>
-      <div className='container'>
+      <Navbar /> 
+      <div className='container mt-4'>
         {/* event, hitting an end point*/}
         <form onSubmit={handleSubmit}>
 

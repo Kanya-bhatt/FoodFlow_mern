@@ -20,6 +20,7 @@ app.use(express.json());
 //as we have to make multiple use for login signup and many more
 app.use('/api', require('./Routes/CreateUser'));//if there exists a unique request -> if user wants to check the its history 
 app.use('/api', require('./Routes/DisplayData'));
+app.use('/api', require('./Routes/OrderData'));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

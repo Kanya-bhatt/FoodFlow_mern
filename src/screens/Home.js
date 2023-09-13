@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '/Users/kanyabhatt/Documents/goFood/mernapp/src/components/Navbar.js';
+import Navbar from '../components/Navbar.js';
 import Footer from '/Users/kanyabhatt/Documents/goFood/mernapp/src/components/Footer.js';
 import Card from '/Users/kanyabhatt/Documents/goFood/mernapp/src/components/Card.js';
 export default function Home() {
@@ -25,13 +25,6 @@ export default function Home() {
     loadData()
   }, [])//if its loaded for the first time [] is empty(inside[] wea re adding dependency)
   //we will add dependency here which is dependent on footer
-
-
-
-
-
-
-
 
   return (
     <div>
@@ -83,9 +76,10 @@ export default function Home() {
                   .map(filterItems => {
                     return (
                       <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
-                        <Card foodName = {filterItems.name}
+                        
+                        <Card foodItem = {filterItems}
                         options = {filterItems.options[0]}
-                        imageSrc = {filterItems.img}
+                        
                         // des = {filterItems.description}
                         
                         > </Card>

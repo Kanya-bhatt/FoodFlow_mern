@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+.navbar-brand {
+  letter-spacing: 3px;
+  color: #8dd9dc;
+}
+
+.navbar-brand:hover {
+	color: #8dd9dc;
+}
+
+.navbar-scroll .nav-link,
+.navbar-scroll .fa-bars {
+  color: #8dd9dc;
+}
+
+.navbar-scrolled .nav-link,
+.navbar-scrolled .fa-bars {
+  color: #8dd9dc;
+}
+
+.navbar-scrolled {
+  background-color: #8dd9dc;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 export default function Signup() {
     const [credentials, setcredentials] = useState({ studentId: "", name: "", semester: "", email: "", password: "" })
 
@@ -10,15 +11,24 @@ export default function Signup() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ studentId: credentials.studentId, name: credentials.name, semester: credentials.semester, email: credentials.email, password: credentials.password })
+            body: JSON.stringify({ 
+                studentId: credentials.studentId, 
+                name: credentials.name, 
+                semester: credentials.semester, 
+                email: credentials.email, 
+                password: credentials.password 
+            })
         });
-        document.location.reload();
+       
         const json = await response.json()//body se response mila hai
-        console.log(json);
+        
         if (!json.success) {//value is true
+            console.log(json);
             alert("enter valid credentials")
 
         }
+
+        document.location.reload();
         
 
 
@@ -30,6 +40,7 @@ export default function Signup() {
     }
     return (
         <>
+        <Navbar />
             <div className='container'>
                 {/* event, hitting an end point*/}
                 <form onSubmit={handleSubmit}>

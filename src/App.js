@@ -11,10 +11,14 @@ import{
 import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import { CartProvider } from './components/ContextReducer';
 function App() {
   return (//in tis return you can only put a single div
   //here are trying to achieve single page application
+  //to globally access
+  <CartProvider>
   <Router>
+    
     <div>
       <Routes>
         <Route exact path= "/" element={<Home/>}/>
@@ -23,6 +27,7 @@ function App() {
       </Routes>
     </div>
     </Router>
+    </CartProvider>
   );
 }
 
