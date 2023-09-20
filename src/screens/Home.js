@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar.js';
-import Footer from '/Users/kanyabhatt/Documents/goFood/mernapp/src/components/Footer.js';
-import Card from '/Users/kanyabhatt/Documents/goFood/mernapp/src/components/Card.js';
+import Footer from '../components/Footer.js';
+import Card from '../components/Card.js';
 export default function Home() {
   //we are going to use map so that we only call card once and data is displayed
   const [search, setSearch] = useState([]);
@@ -64,14 +64,14 @@ export default function Home() {
           //food category me 3 items hai
           //initially foodCat is empty array but if the value has been store
           //key used to make data distinct
-          foodCat !== [] ? foodCat.map((data) => {
+          foodCat != [] ? foodCat.map((data) => {
               return (
               <div className='row mb-3'>
                 <div key={data._id} className='fs-3 m-3'>
                   {data.CategoryName}
                 </div>
                 <hr />
-                {foodItem !== [] ? 
+                {foodItem != [] ? 
                 foodItem.filter((item) => (item.CategoryName == data.CategoryName) && (item.name.toLowerCase().includes(search.toString().toLocaleLowerCase()))) //jo item search kiya hai hamare items hai ki nahi
                   .map(filterItems => {
                     return (
@@ -93,13 +93,7 @@ export default function Home() {
               )
             })
             : ""
-
-
-
         }
-
-   
-
       </div>
 
       <div className='fs-1'><Footer /></div>

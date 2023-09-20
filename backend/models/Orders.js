@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;                  //destructing in javascript
+const { Schema } = mongoose;                  //destructuring in javascript
 
 const OrderSchema = new Schema({
     email: {

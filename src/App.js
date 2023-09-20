@@ -2,6 +2,7 @@ import './App.css';
 import Home from './screens/Home.js';
 import Login from './screens/Login.js';
 import Signup from './screens/Signup.js';
+import MyOrder from './screens/MyOrder.js';
 import React from 'react';
 import{
   BrowserRouter as Router,
@@ -24,6 +25,7 @@ function App() {
         <Route exact path= "/" element={<Home/>}/>
         <Route exact path= "/login" element={<Login/>}/>
         <Route exact path= "/createuser" element={<Signup/>}/>
+        <Route exact path= "/myOrder" element={<MyOrder/>}/>
       </Routes>
     </div>
     </Router>

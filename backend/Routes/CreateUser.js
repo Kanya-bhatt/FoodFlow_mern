@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const { body, validationResult } = require('express-validator')
-const jwt = require('jsonwebtoken')//login ke time pe geenerate karna hai
+const jwt = require('jsonwebtoken')//login ke time pe generate karna hai
 const bcrypt = require("bcryptjs")
 const jwtSecret = "ThisIsMyFirstMernProject$$$$$$$$"//secret for user
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer.js';
 export default function Signup() {
     const [credentials, setcredentials] = useState({ studentId: "", name: "", semester: "", email: "", password: "" })
 
@@ -75,6 +76,7 @@ export default function Signup() {
                     <Link to="/login" className='m-3 btn btn-danger'>Already a user?</Link>
                 </form>
             </div>
+            <Footer/>
         </>
     )
 }

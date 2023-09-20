@@ -25,4 +25,4 @@ app.use('/api', require('./Routes/OrderData'));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-//jwt -> the user doesnt have to login again and again as tje server knows the current user is secure.
+//jwt -> the user doesnt have to login again and again as the server knows the current user is secure.

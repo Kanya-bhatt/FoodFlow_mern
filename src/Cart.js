@@ -1,5 +1,4 @@
 import React from 'react'
-import Login from './screens/Login'
 // import Delete from '@material-ui/icons/Delete'
 import { useCart, useDispatchCart } from './components/ContextReducer';
 export default function Cart() {
@@ -25,7 +24,7 @@ export default function Cart() {
     // catch(error){
         // console.log(error.message);
     // }
-    let response = await fetch("http://localhost:3001/api/orderData", {
+    let response = await fetch("http://localhost:3000/api/orderData", {
       // credentials: 'include',
       // Origin:"http://localhost:3000/login",
       method: 'POST',
@@ -40,7 +39,7 @@ export default function Cart() {
     });
     console.log(response);
     console.log("JSON RESPONSE:::::", response.status)
-    if (response.status === 200) {
+    if (response.status === 200) {    //true
       dispatch({ type: "DROP" })
     }
   }
@@ -64,7 +63,7 @@ export default function Cart() {
           </thead>
           <tbody>
             {data.map((food, index) => (
-              <tr>
+              <tr key={index}>
                 <th scope='row' >{index + 1}</th>
                 <td >{food.name}</td>
                 <td>{food.qty}</td>
