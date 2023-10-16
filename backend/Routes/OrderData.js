@@ -4,15 +4,16 @@ const order = require('../models/Orders');
 
 router.post('/orderData', async (req, res) => {
     let data = req.body.order_data
-    await data.splice(0, 0, { Order_date: req.body.order_date })
+    await data.splice(0, 0, { Order_date: req.body.order_date, status : req.body.status })
 
     let eId = await order.findOne({ 'email': req.body.email })
-    // console.log("Hello"  + eId)
+    
     if (eId == null) {//if true this is first ever order of user
         try {
             await order.create({
                 email : req.body.email,
-                order_data : [data]
+                order_data : [data],
+                // status : "pending"
             }).then(() => {
                 res.json({success : true})
             })

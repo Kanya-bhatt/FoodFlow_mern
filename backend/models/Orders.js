@@ -11,7 +11,6 @@ const OrderSchema = new Schema({
         type: Array,
         required: true,
     },
-
 });
 
 module.exports = mongoose.model('order', OrderSchema);//model - Schema ko insert kaise karana hai 

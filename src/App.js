@@ -1,5 +1,6 @@
 import './App.css';
-import Home from './screens/Home.js';
+import Admin_Home from './admin/Admin_Home.js';
+import Home from './screens/Home'
 import Login from './screens/Login.js';
 import Signup from './screens/Signup.js';
 import MyOrder from './screens/MyOrder.js';
@@ -14,7 +15,8 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import { CartProvider } from './components/ContextReducer';
 import QRcode from './components/QRcode';
-import QRReader from './components/QRCodeReader';
+import Client_OrderDetails from './components/Client_OrderDetails'
+
 function App() {
   return (//in tis return you can only put a single div
   //here are trying to achieve single page application
@@ -29,7 +31,8 @@ function App() {
         <Route exact path= "/createuser" element={<Signup/>}/>
         <Route exact path= "/myOrder" element={<MyOrder/>}/>
         <Route exact path= "/qrcode" element={<QRcode/>}/>
-        <Route exact path= "/qrreader" element={<QRReader/>}/>
+        <Route exact path= "/adminHome" element={<Admin_Home/>}/>
+        <Route exact path = "/clientOrder" element ={<Client_OrderDetails/>}></Route>
       </Routes>
     </div>
     </Router>

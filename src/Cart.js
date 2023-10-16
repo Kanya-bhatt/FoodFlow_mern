@@ -1,13 +1,23 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 // import Delete from '@material-ui/icons/Delete'
 import { useCart, useDispatchCart } from './components/ContextReducer';
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
+  const navigate = useNavigate();
+
+  const handleQr = async () => {
+    let userEmail = localStorage.getItem("userEmail");
+    console.log(userEmail);
+    navigate('/clientOrder');
+  }
+  
   if (data.length === 0) {
     return (
       <div>
         <div className='m-5 w-100 text-center fs-3'>The Cart is Empty!</div>
+        <div className='btn bg-success mt-5 text-center mx-auto' onClick={handleQr}> Get Qr</div>
       </div>
     )
   }
@@ -17,16 +27,9 @@ export default function Cart() {
   // }
 
   const handleCheckOut = async () => {
-    // try{
     let userEmail = localStorage.getItem("userEmail");
     console.log(userEmail);
-    // }
-    // catch(error){
-        // console.log(error.message);
-    // }
     let response = await fetch("http://localhost:3000/api/orderData", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +37,8 @@ export default function Cart() {
       body: JSON.stringify({
         order_data: data,
         email: userEmail,
-        order_date: new Date().toDateString()
+        order_date: new Date().toDateString(),
+        status : "Pending"
       })
     });
     console.log(response);
@@ -78,9 +82,6 @@ export default function Cart() {
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>
       </div>
-
-
-
     </div>
   )
 }

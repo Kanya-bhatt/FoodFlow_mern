@@ -1,61 +1,33 @@
-import {Card, Container, CardContent, Grid, TextField, Button} from '@mui/material';
-import {styled} from '@mui/material/styles';
 import React, { useState } from 'react' 
 import QRCode from 'qrcode'
 
-function QRcode(){
-    const [text, setText] = useState('')
+function QRcode(props){
     const [imageUrl, setImageUrl] = useState('')
-    const qrRef = useRef(null)
 
     const generateQrCode = async () => {
         try {
-            const response = await QRCode.toDataURL(text);
+            const response = await QRCode.toDataURL(props.id);
             setImageUrl(response)
-            //console.log(response)
         } catch (error) {
             console.log(error)
         }
     }
-    const classes = useStyles();
     return (
-        <Container className={classes.container}>
-            <Card>
-                <h2 className={classes.title}>Generate Download & Scan QR code with React js</h2>
-                <CardContent>
-                    <Grid container spacing={2}>
-                        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                            <TextField onChange={(e)=> setText(e.target.value)}label="Enter Text Here"/>
-                            <Button className={classes.btn} variant="contained" color="primary" onClick={()=> generateQrCode()}>Generate</Button>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            {imageUrl ? (<a href={imageUrl} download><img src={imageUrl} alt="img"/></a>):null}                      
-                        </Grid>
-                        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}></Grid>
-                        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}></Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
-        </Container>
+
+        <div className='container mx-auto mt-5'>
+            <button className='col-sm-2 btn btn-primary m-2' onClick={generateQrCode}>Generate</button>
+            <div className='row'>
+                <div className='card col-sm-4 mx-auto m-2'>
+                    <div className='card-header'>
+                        <h3 className='badges text-center'>Qrcode image</h3>
+                    </div>
+                    <div className='card-body text-center'>
+                    {imageUrl ? (<a href={imageUrl} download><img src={imageUrl} alt="img"/></a>):null} 
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
-const useStyles = styled((theme) => ({
-    container : {
-        marginTop : 10
-    },
-    title : {
-        display : 'flex',
-        justifyContent : 'center',
-        alignItems : 'center',
-        background : '#3f51b5',
-        color : '#fff',
-        padding : 20
-    },
-    btn :{
-        marginTop:10,
-        marginBottom:20
-    }
-}))
 export default QRcode;
