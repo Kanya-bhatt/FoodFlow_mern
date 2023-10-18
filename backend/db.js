@@ -3,6 +3,7 @@ const mongoose = require('mongoose');                   //for creating database 
 const mongoURI = 'mongodb+srv://gofood:gofood1113@cluster0.gd9mnto.mongodb.net/gofoodmern?retryWrites=true&w=majority';
 global.food_items;
 global.order_data;
+global.user_data;
 const mongoDB = async () => {
   try {
     await mongoose.connect(mongoURI, {
@@ -17,6 +18,10 @@ const mongoDB = async () => {
     const data = await fetched_data.find({}).toArray();
     const foodCategory = db.collection("foodCategory");
 
+    const users = db.collection("users");
+    const userD = await users.find({}).toArray();
+
+    global.user_data = userD;
 
     const categoryData = await foodCategory.find({}).toArray();
     global.food_items = data;

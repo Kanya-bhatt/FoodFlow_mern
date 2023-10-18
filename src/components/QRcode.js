@@ -1,5 +1,7 @@
 import React, { useState } from 'react' 
 import QRCode from 'qrcode'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 function QRcode(props){
     const [imageUrl, setImageUrl] = useState('')
@@ -13,9 +15,10 @@ function QRcode(props){
         }
     }
     return (
-
+        <>
+        <Navbar/>
         <div className='container mx-auto mt-5'>
-            <button className='col-sm-2 btn btn-primary m-2' onClick={generateQrCode}>Generate</button>
+            <button className='col-sm-2 btn m-2' style={{ backgroundColor: '#006367', color: '#6BB7BB' }} onClick={generateQrCode}><b>Generate</b></button>
             <div className='row'>
                 <div className='card col-sm-4 mx-auto m-2'>
                     <div className='card-header'>
@@ -27,6 +30,10 @@ function QRcode(props){
                 </div>
             </div>
         </div>
+        <div style={{ position: 'absolute', left: 0, bottom: 0, right: 0 }}>
+                <Footer />
+            </div>
+        </>
     );
 }
 

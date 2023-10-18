@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import OrderDetails from './Order_details'
+import AdminNavbar from '../components/Admin_Navbar'
+import Footer from '../components/Footer'
 
 function Admin_Home() {
     const [scanResultFile, setScanResultFile] = useState(null)
@@ -8,21 +10,21 @@ function Admin_Home() {
 
     useEffect(() => {
         const scanner = new Html5QrcodeScanner('reader', {
-            qrbox : {
-                width : 250,
-                height : 250
+            qrbox: {
+                width: 250,
+                height: 250
             },
             fps: 5,
         })
-    
+
         scanner.render(success, error)
-    
-        function success(result){
+
+        function success(result) {
             scanner.clear();
             setScanResultFile(result)
         }
-    
-        function error(err){
+
+        function error(err) {
             console.warn(err)
         }
     }, [])
@@ -48,27 +50,24 @@ function Admin_Home() {
 
     useEffect(() => {
         fetchOrders();
-      }, [fetchOrders]);
-    
-  return (
-    <div className='container mx-auto mt-5'>
-        <div className='row'>
-            <div className='card col-sm-4 mx-auto m-2'>
-                    <div className='card-header rounded text-center'>
+    }, [fetchOrders]);
+
+    return (
+        <>
+            <AdminNavbar />
+            <div className='container mx-auto mt-5'>
+                <div className='row'>
+                    <div className='card col-sm-4 mx-auto m-2'>
+                        <div className='card-body text-center'>
+                            {scanResultFile ? <div>Success : {scanResultFile}</div> : <div id='reader'></div>}
+                        </div>
                     </div>
-                    <div className='card-body text-center'>
-                        {scanResultFile ? <div>Success : {scanResultFile}</div> : <div id='reader'></div>}
-                    </div>
-                    <div className='card-footer'>
-                        <h6>Scanned result : {scanResultFile}</h6>
-                        {console.log(orderData)}
-                        
-                    </div> 
+                </div>
+                <OrderDetails result={orderData} dataId={scanResultFile} />
             </div>
-        </div>
-        <OrderDetails result = {orderData} dataId = {scanResultFile}/>
-    </div>
-  )
+            <Footer />
+        </>
+    )
 }
 
 export default Admin_Home;

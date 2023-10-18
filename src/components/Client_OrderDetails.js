@@ -20,12 +20,7 @@ export default function Client_OrderDetails() {
                 
             });
             const data = await response.json();
-            // Filter items based on email comparison
-            // const filteredItems = data[0].filter(item => item.email === localStorage.getItem('userEmail') && console.log(item.email));
-            
-            
             setMatchingItems(data[0]);
-            //console.log(matchingItems);
         } catch (error) {
             console.error("Error loading data:", error);
         }
@@ -45,13 +40,9 @@ export default function Client_OrderDetails() {
 
 {Object.keys(matchingItems).length !== 0 ? matchingItems.map((item, index) => (
                 <div key={index}>
-                    {/* Conditionally render email */}
                     {isMatched(item.email) ? (
                         <div>
-                            {/* <p> {item._id} </p> */}
                             <QrCode id = {item._id} />
-                            {/* Render order data */}
-                            
                         </div>
                     ) : null}
                 </div>

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
+const Admin = require('../models/Admin')
 const { body, validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')//login ke time pe generate karna hai
 const bcrypt = require("bcryptjs")
@@ -43,42 +44,83 @@ router.post("/createuser", [
 
 router.post("/loginuser", [
     //validation
-        body("email", "Incorrect Email").isEmail(),
+    body("email", "Incorrect Email").isEmail(),
     //password must be at least 5 length
-        body("password", "Incorrect Password").isLength({ min: 5 })],
-        async (req, res) => {                         //endpoint
-            const errors = validationResult(req);
+    body("password", "Incorrect Password").isLength({ min: 5 })],
+    async (req, res) => {                         //endpoint
+        const errors = validationResult(req);
 
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        let email = req.body.email;                       //endpoint
+        try {
+            let userData = await User.findOne({ email });//find data matching with the email, returns user complete data
+            if (!userData) {
+
+                return res.status(400).json({ errors: "try logging with correct credentials" });
             }
-            let email = req.body.email;                       //endpoint
-            try {
-                let userData = await User.findOne({ email });//find data matching with the email, returns user complete data
-                if (!userData) {
-                    
-                    return res.status(400).json({ errors: "try logging with correct credentials" });
+
+            const passwordCompare = await bcrypt.compare(req.body.password, userData.password)//because userData.password is in hash format/ encrpted.
+
+            if (!passwordCompare) {
+                return res.status(400).json({ errors: "try logging with correct credentials" });
+            }
+            //we will send a authorization token to save in user side
+            const data = {
+                user: {
+                    id: userData.id
                 }
+            }//jab tak user cache clear nahi karega tab tak ye data nahi jayega
+            const authToken = jwt.sign(data, jwtSecret)
+            return res.json({ success: true, authToken: authToken });
 
-                const passwordCompare = await bcrypt.compare(req.body.password, userData.password)//because userData.password is in hash format/ encrpted.
+        }
+        catch (error) {
+            console.log(error);
+            res.json({ success: false });
+        }
+    })
 
-                if (!passwordCompare) {
-                    return res.status(400).json({ errors: "try logging with correct credentials" });
-                 }
-                //we will send a authorization token to save in user side
-                const data = {
-                    user: {
-                        id: userData.id
-                    }
-                }//jab tak user cache clear nahi karega tab tak ye data nahi jayega
-                const authToken = jwt.sign(data, jwtSecret)
-                return res.json({ success: true, authToken: authToken });
+router.post("/loginadmin", [
+    //validation
+    body("email", "Incorrect Email").isEmail(),
+    //password must be at least 5 length
+    body("password", "Incorrect Password").isLength({ min: 5 })],
+    async (req, res) => {                         //endpoint
+        const errors = validationResult(req);
 
-            } 
-            catch (error) {
-                console.log(error);
-                res.json({ success: false });
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        let email = req.body.email;                       //endpoint
+        try {
+            let adminData = await Admin.findOne({ email });//find data matching with the email, returns user complete data
+            if (!adminData) {
+
+                return res.status(400).json({ errors: "try logging with correct credentials" });
             }
-        })
+
+            const passwordCompare = req.body.password === adminData.password;//because userData.password is in hash format/ encrpted.
+
+            if (!passwordCompare) {
+                return res.status(400).json({ errors: "try logging with correct credentials" });
+            }
+            //we will send a authorization token to save in user side
+            const data = {
+                admin: {
+                    id: adminData.id
+                }
+            }//jab tak user cache clear nahi karega tab tak ye data nahi jayega
+            const authToken = jwt.sign(data, jwtSecret)
+            return res.json({ success: true, authToken: authToken });
+
+        }
+        catch (error) {
+            console.log(error);
+            res.json({ success: false });
+        }
+    })
+
 
 module.exports = router;

@@ -36,7 +36,6 @@ export default function Home() {
                         <div className='carousel-caption' style={{ zIndex: "10" }}>
                             <div className="d-flex justify-content-center">
                                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value = {search} onChange={(e)=>{setSearch(e.target.value)}}/>
-                                {/* <button className="btn btn-outline-success text-white bg-success" type="submit">Search</button> */}
                             </div>
                         </div>
                         <div className="carousel-item active">
@@ -79,9 +78,6 @@ export default function Home() {
                         
                         <Card foodItem = {filterItems}
                         options = {filterItems.options[0]}
-                        
-                        // des = {filterItems.description}
-                        
                         > </Card>
                       </div>
                     )

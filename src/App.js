@@ -5,7 +5,7 @@ import Login from './screens/Login.js';
 import Signup from './screens/Signup.js';
 import MyOrder from './screens/MyOrder.js';
 import React from 'react';
-import{
+import {
   BrowserRouter as Router,
   Routes,
   Route,
@@ -16,26 +16,31 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import { CartProvider } from './components/ContextReducer';
 import QRcode from './components/QRcode';
 import Client_OrderDetails from './components/Client_OrderDetails'
+import AdminLogin from './admin/Admin_Login'
+import Introduction from './components/Introduction'
+import CustomerList from './components/CustomerList'
+import DisplayOrders from './admin/DisplayOrders'
 
 function App() {
-  return (//in tis return you can only put a single div
-  //here are trying to achieve single page application
-  //to globally access
-  <CartProvider>
-  <Router>
-    
-    <div>
-      <Routes>
-        <Route exact path= "/" element={<Home/>}/>
-        <Route exact path= "/login" element={<Login/>}/>
-        <Route exact path= "/createuser" element={<Signup/>}/>
-        <Route exact path= "/myOrder" element={<MyOrder/>}/>
-        <Route exact path= "/qrcode" element={<QRcode/>}/>
-        <Route exact path= "/adminHome" element={<Admin_Home/>}/>
-        <Route exact path = "/clientOrder" element ={<Client_OrderDetails/>}></Route>
-      </Routes>
-    </div>
-    </Router>
+  return (
+    <CartProvider>
+      <Router>
+        <div>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/createuser" element={<Signup />} />
+            <Route exact path="/myOrder" element={<MyOrder />} />
+            <Route exact path="/qrcode" element={<QRcode />} />
+            <Route exact path="/adminHome" element={<Admin_Home />} />
+            <Route exact path="/clientOrder" element={<Client_OrderDetails />} />
+            <Route exact path="/adminlogin" element={<AdminLogin />} />
+            <Route exact path="/intropage" element={<Introduction />} />
+            <Route exact path="/customerList" element={<CustomerList />} />
+            <Route exact path="/displayOrders" element={<DisplayOrders />} />
+          </Routes>
+        </div>
+      </Router>
     </CartProvider>
   );
 }
